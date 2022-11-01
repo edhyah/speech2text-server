@@ -5,6 +5,8 @@
     <body>
         <div id="result">null</div>
         <script>
+            var lastStartedAt = 0;
+            var autoRestartCount = 0;
             try {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 const recognition = new SpeechRecognition();
@@ -23,6 +25,32 @@
                     const elem = document.getElementById('result');
                     if (latestUtterance.isFinal) {
                         elem.innerHTML = transcript;
+                    }
+                }
+
+                recognition.onstart = (event) => {
+                    console.log('Speech recognition service started.');
+                    lastStartedAt = new Date().getTime();
+                }
+
+                // Google Chrome stops speech recognition engine after a while
+                // regardless of engine settings. Below we restart the engine
+                // whenever this happens.
+                // Code based on annyang: https://github.com/TalAter/annyang/blob/master/src/annyang.js
+                // More information here: https://stackoverflow.com/questions/29996350/speech-recognition-run-continuously
+                recognition.onend = (event) => {
+                    console.log('Speech recognition service ended. Attempting restart...');
+                    var timeSinceLastStart = new Date().getTime() - lastStartedAt;
+                    autoRestartCount += 1;
+                    if (autoRestartCount % 10 === 0) {
+                        console.log('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+                    }
+                    if (timeSinceLastStart < 1000) {
+                        setTimeout(function() {
+                            recognition.start();
+                        }, 1000 - timeSinceLastStart);
+                    } else {
+                        recognition.start();
                     }
                 }
             } catch (err) {
