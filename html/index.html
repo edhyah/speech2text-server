@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <script>
+            try {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.lang = 'en-US';
+                recognition.interimResults = false;
+                recognition.maxAlternatives = 1;
+                recognition.start();
+                console.log('Speech recognition initialized.');
+
+                recognition.onresult = (event) => {
+                    let utteranceList = event.results;
+                    let latestUtterance = utteranceList[utteranceList.length-1];
+                    let speechRecognition = latestUtterance[latestUtterance.length-1];
+                    let transcript = speechRecognition.transcript.toLowerCase();
+                    console.log(transcript);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        </script>
+    </head>
+    <body>
+        text2speech server
+    </body>
+</html>
+
