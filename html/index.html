@@ -1,5 +1,9 @@
 <html>
     <head>
+        <title>text2speech server</title>
+    </head>
+    <body>
+        <div id="result">null</div>
         <script>
             try {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -16,15 +20,15 @@
                     let latestUtterance = utteranceList[utteranceList.length-1];
                     let speechRecognition = latestUtterance[latestUtterance.length-1];
                     let transcript = speechRecognition.transcript.toLowerCase();
-                    console.log(transcript);
+                    const elem = document.getElementById('result');
+                    if (latestUtterance.isFinal) {
+                        elem.innerHTML = transcript;
+                    }
                 }
             } catch (err) {
                 console.log(err);
             }
         </script>
-    </head>
-    <body>
-        text2speech server
     </body>
 </html>
 

@@ -1,4 +1,4 @@
-# text2speech-server
+# speech2text-server
 
 The Web Speech API doesn't come included in all modern web browsers, including
 the Oculus Quest Browser. This is unfortunate because I want to show demos using
