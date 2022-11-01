@@ -1,10 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const puppeteer = require('puppeteer-core');
 const path = require('path');
 
+const port = process.env.PORT || 4242;
+const app = express();
+app.use(cors());
+
 let browser;
 let page;
-
 (async () => {
     try {
         browser = await puppeteer.launch({
@@ -27,9 +31,6 @@ let page;
         console.log(err);
     }
 })();
-
-const port = process.env.PORT || 4242;
-const app = express();
 
 app.get('/', async (_, res) => {
     if (page) {
