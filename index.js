@@ -1,5 +1,5 @@
-const express = require('express');
 const cors = require('cors');
+const express = require('express');
 const puppeteer = require('puppeteer-core');
 const path = require('path');
 
@@ -21,7 +21,9 @@ let page;
                 '--no-first-run',
                 '--no-default-browser-check',
             ],
-            executablePath: '/usr/bin/google-chrome',   // chromium doesn't work
+            //executablePath: '/snap/bin/chromium',   // chromium doesn't work
+            //executablePath: '/usr/bin/google-chrome',
+            executablePath: '/usr/bin/google-chrome-stable',
             ignoreDefaultArgs: '--mute-audio',
         });
 

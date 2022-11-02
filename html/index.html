@@ -43,7 +43,7 @@
                     var timeSinceLastStart = new Date().getTime() - lastStartedAt;
                     autoRestartCount += 1;
                     if (autoRestartCount % 10 === 0) {
-                        console.log('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+                        console.log('Speech Recognition is repeatedly stopping and starting. See README for tips.');
                     }
                     if (timeSinceLastStart < 1000) {
                         setTimeout(function() {
