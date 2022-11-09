@@ -36,9 +36,11 @@ let page;
 
 app.get('/', async (_, res) => {
     if (page) {
-        const elem = await page.waitForSelector('#result');
-        const result = await elem.evaluate(el => el.textContent);
-        res.status(200).send(result);
+        const resultElem = await page.waitForSelector('#result');
+        const result = await resultElem.evaluate(el => el.textContent);
+        const timestampElem = await page.waitForSelector('#timestamp');
+        const timestamp = await timestampElem.evaluate(el => el.textContent);
+        res.status(200).send({result: result, timestamp: timestamp});
     } else {
         res.status(503).send('Speech recognition engine unavailable.');
     }

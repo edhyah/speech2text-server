@@ -4,6 +4,7 @@
     </head>
     <body>
         <div id="result">null</div>
+        <div id="timestamp">null</div>
         <script>
             var lastStartedAt = 0;
             var autoRestartCount = 0;
@@ -22,9 +23,11 @@
                     let latestUtterance = utteranceList[utteranceList.length-1];
                     let speechRecognition = latestUtterance[latestUtterance.length-1];
                     let transcript = speechRecognition.transcript.toLowerCase();
-                    const elem = document.getElementById('result');
+                    const resultElem = document.getElementById('result');
+                    const timestampElem = document.getElementById('timestamp');
                     if (latestUtterance.isFinal) {
-                        elem.innerHTML = transcript;
+                        resultElem.innerHTML = transcript;
+                        timestampElem.innerHTML = Date.now();
                     }
                 }
 
